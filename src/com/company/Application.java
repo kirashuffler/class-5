@@ -30,27 +30,45 @@ public class Application {
     }
 
     public void printGreeting() {
-        System.out.println("Hello from the OpenWeatherMap API sample app!");
+        System.out.println("(= Hello from the OpenWeatherMap API sample app =)");
     }
 
     public void printMenu() {
-        System.out.println("1 - get weather forecast for today");
-        int option = input.nextInt();
-        switch (option) {
-            case 1 : printForecast(ForecastMode.TODAY, new GuiCallback() {
-                @Override
-                public void reset() {
-                    printMenu();
-                }
-            });
-                break;
+        System.out.println("Get the weather forecast for today or tomorrow, or 'exit' if you want to exit:  ");
+        String option = new String(input.nextLine());
+        if (option.equals("exit")) {
+            System.out.println("Good Bye :D");
+
+
+        } else {
+            System.out.println("Write city: ");
+            String city = new String(input.nextLine());
+            switch (option) {
+                case "today":
+                    printForecast(ForecastMode.TODAY, new GuiCallback() {
+                        @Override
+                        public void reset() {
+                            printMenu();
+                        }
+                    }, city);
+                    break;
+                case "tomorrow":
+                    printForecast(ForecastMode.TOMORROW, new GuiCallback() {
+                        @Override
+                        public void reset() {
+                            printMenu();
+                        }
+                    }, city);
+                    break;
+            }
         }
     }
 
-    public void printForecast(ForecastMode mode, GuiCallback callback) {
+    public void printForecast(ForecastMode mode, GuiCallback callback,String city) {
         if (mode == ForecastMode.TODAY) {
             try {
-                System.out.println(connector.getForecastForToday("Moscow"));
+                SaveSettings.writeUsingOutputStream(city);
+                System.out.println(connector.getForecastForToday(city));
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -19,7 +19,7 @@ import java.net.*;
 
 public class ApiConnector {
 
-    private static final String APP_ID = "apikey";
+    private static final String APP_ID = "c2a9f69e51fb24f160f38c7a2d0d8476";
 
     public String getForecastForToday(String city) throws IOException {
         URL address = null;
@@ -30,6 +30,7 @@ public class ApiConnector {
             System.err.println(e.toString());
             System.exit(0);
         }
+
 
         URLConnection connection = address.openConnection();
         StringBuilder result = new StringBuilder();

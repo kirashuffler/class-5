@@ -5,7 +5,4 @@ public enum ForecastMode {
     TODAY,
     TOMORROW;
 
-
 }
-
-
